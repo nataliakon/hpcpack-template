@@ -175,6 +175,7 @@
     },
     "headNodeList": {
       "type": "string",
+      "defaultValue": "",
       "metadata": {
         "description": "The head node list"
       }
