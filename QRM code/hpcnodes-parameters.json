@@ -18,13 +18,13 @@
         "value": "Standard_LRS"
       },
       "osDiskSizeInGB":{
-        "value": "127"
+        "value": 127
       },
       "dataDiskSizeInGB": {
         "value": "10"
       },
       "dataDiskCount":{
-        "value": "1"
+        "value": 1
       },
       "dataDiskType":{
         "value": "Standard_LRS"
