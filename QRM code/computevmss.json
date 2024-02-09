@@ -168,6 +168,7 @@
     },
     "certThumbprint": {
       "type": "string",
+      "defaultValue": " ",
       "metadata": {
         "description": "Thumbprint of the certificate."
       }
