@@ -21,7 +21,7 @@
         "value": 127
       },
       "dataDiskSizeInGB": {
-        "value": "10"
+        "value": 32
       },
       "dataDiskCount":{
         "value": 1
