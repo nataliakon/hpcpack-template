@@ -1,0 +1,81 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "subnetId": {
+        "value": "GEN-UNIQUE"
+      },
+      "vmssName": {
+        "value":""
+      },
+      "vmNumber":{
+        "value": "int"
+      },
+      "vmSize":{
+        "value": ""
+      },
+      "osDiskType": {
+        "value": ""
+      },
+      "osDiskSizeInGB":{
+        "value": ""
+      },
+      "dataDiskSizeInGB": {
+        "value": ""
+      },
+      "dataDiskCount":{
+        "value": ""
+      },
+      "dataDiskType":{
+        "value": ""
+      },
+      "imageReference": {
+        "value": ""
+      },
+      "imageOsPlatform": {
+        "value": "windows"
+      },
+      "adminUsername":{
+        "value": ""
+      },
+      "adminPassword":{
+        "reference": {
+            "keyVault": {},
+            "secretName": "",
+            "secretVersion": ""
+        }
+      },
+      "availabilityZones": {
+        "value": []
+      },
+      "enableAcceleratedNetworking":{
+        "value": true
+      },
+      "installRDMADriver": {
+        "value": true
+      }
+      "secrets":{
+        "value": ""
+      },
+      "joinDomain":{
+        "value": true
+      },
+      "domainName":{
+        "value": ""
+      },
+      "domainOUPath":{
+        "value": ""
+      },
+      "domainJoinAccountName":{
+        "value": ""
+      },
+      "domainJointAccountPassword":{
+        "reference": {
+            "keyVault": {}
+            "secretName": "",
+            "secretVersion": ""
+        }
+      }
+
+}
+    }
