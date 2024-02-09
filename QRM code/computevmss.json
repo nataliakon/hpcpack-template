@@ -505,7 +505,7 @@
             "adminPassword": "[parameters('adminPassword')]",
             "linuxConfiguration": "[if(variables('isWindowsOS'), json('null'), variables('linuxConfiguration'))]",
             "windowsConfiguration": "[if(variables('isWindowsOS'), variables('windowsConfiguration'), json('null'))]",
-            "secrets": "[variables('certSecrets)]"
+            "secrets": "[variables('certSecrets')]"
           },
           "networkProfile": {
             "networkInterfaceConfigurations": [
