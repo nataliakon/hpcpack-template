@@ -54,10 +54,33 @@
         "description": "The data disk type of the VM"
       }
     },
-    "imageReference": {
-      "type": "object",
+    "computeNodeImage": {
+      "type": "string",
+      "defaultValue": "WindowsServer2019",
+      "allowedValues": [
+        "WindowsServer2012",
+        "WindowsServer2012R2",
+        "WindowsServer2016",
+        "WindowsServer2019",
+        "WindowsServer2022",
+        "WindowsServer2012R2WithExcel",
+        "WindowsServer2016WithExcel",
+        "WindowsServer2012_Gen2",
+        "WindowsServer2012R2_Gen2",
+        "WindowsServer2016_Gen2",
+        "WindowsServer2019_Gen2",
+        "WindowsServer2022_Gen2",
+        "CustomImage"
+      ],
       "metadata": {
-        "description": "The image reference"
+        "description": "The VM image of the compute nodes."
+      }
+    },
+    "computeNodeImageResourceId": {
+      "type": "string",
+      "defaultValue": "/subscriptions/xxx/resourceGroups/xxx/providers/Microsoft.Compute/images/xxx",
+      "metadata": {
+        "description": "Specify only when 'CustomImage' selected for computeNodeImage. The resource Id of the compute node image, it can be a managed VM image in your own subscription (/subscriptions/&lt;SubscriptionId&gt;/resourceGroups/&lt;ResourceGroupName&gt;/providers/Microsoft.Compute/images/&lt;ImageName&gt;) or a shared VM image from Azure Shared Image Gallery (/subscriptions/&lt;SubscriptionId&gt;/resourceGroups/&lt;ResourceGroupName&gt;/providers/Microsoft.Compute/galleries/&lt;GalleryName&gt;/images/&lt;ImageName&gt;/versions/&lt;ImageVersion&gt;)."
       }
     },
     "imageOsPlatform": {
@@ -214,9 +237,126 @@
         "Flexible",
         "Uniform"
       ]
+    },
+    "vaultName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the KeyVault in which the certificate is stored."
+      }
+    },
+    "vaultResourceGroup": {
+      "type": "string",
+      "metadata": {
+        "description": "Resource Group of the KeyVault in which the certificate is stored."
+      }
+    },
+    "certificateUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "Url of the certificate with version in KeyVault e.g. https://testault.vault.azure.net/secrets/testcert/b621es1db241e56a72d037479xab1r7."
+      }
     }
   },
   "variables": {
+    "computeNodeImages": {
+      "WindowsServer2008R2": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2008-R2-SP1",
+        "version": "latest"
+      },
+      "WindowsServer2012": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2012-Datacenter",
+        "version": "latest"
+      },
+      "WindowsServer2012R2": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2012-R2-Datacenter",
+        "version": "latest"
+      },
+      "WindowsServer2016": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2016-Datacenter",
+        "version": "latest"
+      },
+      "WindowsServer2019": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2019-Datacenter",
+        "version": "latest"
+      },
+      "WindowsServer2022": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2022-datacenter",
+        "version": "latest"
+      },
+      "WindowsServer2012R2WithExcel": {
+        "publisher": "MicrosoftWindowsServerHPCPack",
+        "offer": "WindowsServerHPCPack",
+        "sku": "2016U2CN-WS2012R2-Excel",
+        "version": "latest"
+      },
+      "WindowsServer2016WithExcel": {
+        "publisher": "MicrosoftWindowsServerHPCPack",
+        "offer": "WindowsServerHPCPack",
+        "sku": "2016U2CN-WS2016-Excel",
+        "version": "latest"
+      },
+      "WindowsServer2012_Gen2": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2012-datacenter-gensecond",
+        "version": "latest"
+      },
+      "WindowsServer2012R2_Gen2": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2012-r2-datacenter-gensecond",
+        "version": "latest"
+      },
+      "WindowsServer2016_Gen2": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2016-datacenter-gensecond",
+        "version": "latest"
+      },
+      "WindowsServer2019_Gen2": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2019-datacenter-gensecond",
+        "version": "latest"
+      },
+      "WindowsServer2022_Gen2": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2022-datacenter-g2",
+        "version": "latest"
+      },
+      "CustomImage": {
+        "id": "[trim(parameters('computeNodeImageResourceId'))]"
+      }
+    },
+    "computeNodeImageRef": "[variables('computeNodeImages')[parameters('computeNodeImage')]]",
+    "vaultName": "[trim(parameters('vaultName'))]",
+    "vaultResourceGroup": "[trim(parameters('vaultResourceGroup'))]",
+    "certSecrets": [
+      {
+        "sourceVault": {
+          "id": "[resourceId(variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
+        },
+        "vaultCertificates": [
+          {
+            "certificateUrl": "[parameters('certificateUrl')]",
+            "certificateStore": "My"
+          }
+        ]
+      }
+    ],
     "userAssignedIdentityObject": {
       "type": "UserAssigned",
       "userAssignedIdentities": {
@@ -346,7 +486,7 @@
         },
         "virtualMachineProfile": {
           "storageProfile": {
-            "imageReference": "[parameters('imageReference')]",
+            "imageReference": "[variables('computeNodeImageRef')]",
             "osDisk": {
               "caching": "ReadOnly",
               "createOption": "FromImage",
@@ -363,7 +503,7 @@
             "adminPassword": "[parameters('adminPassword')]",
             "linuxConfiguration": "[if(variables('isWindowsOS'), json('null'), variables('linuxConfiguration'))]",
             "windowsConfiguration": "[if(variables('isWindowsOS'), variables('windowsConfiguration'), json('null'))]",
-            "secrets": "[parameters('secrets')]"
+            "secrets": "[variables('certSecrets)]"
           },
           "networkProfile": {
             "networkInterfaceConfigurations": [

@@ -3,77 +3,86 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "subnetId": {
-        "value": "GEN-UNIQUE"
+        "value": "/subscriptions/f013bc3f-1407-4b68-a977-9f22ef438677/resourceGroups/rg-avd-networking/providers/Microsoft.Network/virtualNetworks/avd-cacn-vnet/subnets/subnet1"
       },
       "vmssName": {
-        "value":""
+        "value":"qrmszcclwhpc"
       },
       "vmNumber":{
-        "value": "int"
+        "value": 3
       },
       "vmSize":{
-        "value": ""
+        "value": "Standard_D3_v2"
       },
       "osDiskType": {
-        "value": ""
+        "value": "Standard_LRS"
       },
       "osDiskSizeInGB":{
-        "value": ""
+        "value": "127"
       },
       "dataDiskSizeInGB": {
-        "value": ""
+        "value": "10"
       },
       "dataDiskCount":{
-        "value": ""
+        "value": "1"
       },
       "dataDiskType":{
-        "value": ""
+        "value": "Standard_LRS"
       },
-      "imageReference": {
-        "value": ""
+      "computeNodeImage": {
+        "value": "WindowsServer2019"
       },
       "imageOsPlatform": {
         "value": "windows"
       },
       "adminUsername":{
-        "value": ""
+        "value": "azadmin"
       },
       "adminPassword":{
         "reference": {
-            "keyVault": {},
-            "secretName": "",
-            "secretVersion": ""
+            "keyVault": {
+                "id": "/subscriptions/f013bc3f-1407-4b68-a977-9f22ef438677/resourceGroups/rg-azure-firewall-policy/providers/Microsoft.KeyVault/vaults/fw-cert-kv-C4yODoABhTBxP"
+            },
+            "secretName": "localAdminPassword"
+
         }
       },
       "availabilityZones": {
-        "value": []
+        "value": [1,2,3]
       },
       "enableAcceleratedNetworking":{
         "value": true
       },
       "installRDMADriver": {
         "value": true
-      }
-      "secrets":{
-        "value": ""
+      },
+      "vaultName":{
+        "value": "fw-cert-kv-C4yODoABhTBxP"
+      },
+      "vaultResourceGroup":{
+        "value": "rg-azure-firewall-policy"
+      },
+      "certificateUrl":{
+        "value": "https://fw-cert-kv-c4yodoabhtbxp.vault.azure.net/secrets/azminhpcpackcommunication/e5ce945bb8f74af2aee6316a0f53813b"
       },
       "joinDomain":{
         "value": true
       },
       "domainName":{
-        "value": ""
+        "value": "azurelab.ca"
       },
       "domainOUPath":{
         "value": ""
       },
       "domainJoinAccountName":{
-        "value": ""
+        "value": "azadmin"
       },
       "domainJointAccountPassword":{
         "reference": {
-            "keyVault": {}
-            "secretName": "",
-            "secretVersion": ""
+            "keyVault": {
+                "id": "/subscriptions/f013bc3f-1407-4b68-a977-9f22ef438677/resourceGroups/rg-azure-firewall-policy/providers/Microsoft.KeyVault/vaults/fw-cert-kv-C4yODoABhTBxP"
+            },
+            "secretName": "domainJoinPassword"
         }
       }
 
