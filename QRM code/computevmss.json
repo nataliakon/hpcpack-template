@@ -189,6 +189,17 @@
       "metadata": {
         "description": "The DNS servers in order, if not configured, the DNS servers configured in the virtual network will be used."
       }
+    },
+    "orchestrationMode": {
+      "type": "string",
+      "metadata": {
+        "description": "orchestrationMode for VMSS. https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-orchestration-modes#a-comparison-of-flexible-uniform-and-availability-sets"
+      },
+      "defaultValue": "Flexible",
+      "allowedValues": [
+        "Flexible",
+        "Uniform"
+      ]
     }
   },
   "variables": {
@@ -304,7 +315,7 @@
   },
   "resources": [
     {
-      "apiVersion": "2019-03-01",
+      "apiVersion": "2023-03-01",
       "type": "Microsoft.Compute/virtualMachineScaleSets",
       "name": "[parameters('vmssName')]",
       "location": "[resourceGroup().location]",
@@ -368,7 +379,8 @@
           },
           "priority": "[parameters('vmPriority')]",
           "evictionPolicy": "[if(equals(parameters('vmPriority'), 'Regular'), json('null'), 'Deallocate')]"
-        }
+        }, 
+        "zoneBalance": "bool"
       },
       "zones": "[parameters('availabilityZones')]"
     }
