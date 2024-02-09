@@ -542,7 +542,7 @@
           "priority": "[parameters('vmPriority')]",
           "evictionPolicy": "[if(equals(parameters('vmPriority'), 'Regular'), json('null'), 'Deallocate')]"
         }, 
-        "zoneBalance": "[paramters('zoneBalance')]",
+        "zoneBalance": "[parameters('zoneBalance')]",
       "zones": "[parameters('availabilityZones')]"
     }
   }
