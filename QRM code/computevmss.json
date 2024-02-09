@@ -241,7 +241,7 @@
       "metadata": {
         "description": "orchestrationMode for VMSS. https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-orchestration-modes#a-comparison-of-flexible-uniform-and-availability-sets"
       },
-      "defaultValue": "Flexible",
+      "defaultValue": "Uniform",
       "allowedValues": [
         "Flexible",
         "Uniform"
