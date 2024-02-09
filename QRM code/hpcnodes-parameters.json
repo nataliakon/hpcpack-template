@@ -50,6 +50,9 @@
       "availabilityZones": {
         "value": [1,2,3]
       },
+      "zoneBalance":{
+        "value": true
+      },
       "enableAcceleratedNetworking":{
         "value": true
       },
