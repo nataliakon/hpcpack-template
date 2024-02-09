@@ -57,7 +57,7 @@
         "value": true
       },
       "installRDMADriver": {
-        "value": true
+        "value": false
       },
       "vaultName":{
         "value": "fw-cert-kv-C4yODoABhTBxP"
