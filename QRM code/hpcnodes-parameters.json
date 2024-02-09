@@ -6,7 +6,7 @@
         "value": "/subscriptions/f013bc3f-1407-4b68-a977-9f22ef438677/resourceGroups/rg-avd-networking/providers/Microsoft.Network/virtualNetworks/avd-cacn-vnet/subnets/subnet1"
       },
       "vmssName": {
-        "value":"qrmszcclwhpc"
+        "value":"qrmszcclw"
       },
       "vmNumber":{
         "value": 3
