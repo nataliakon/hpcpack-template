@@ -78,7 +78,7 @@
         "value": "CN=Computers,DC=azurelab,DC=ca"
       },
       "domainJoinAccountName":{
-        "value": "azadmin@azurelab.ca"
+        "value": "azadmin"
       },
       "domainJointAccountPassword":{
         "reference": {
