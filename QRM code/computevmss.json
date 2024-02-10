@@ -439,11 +439,11 @@
           "typeHandlerVersion": "1.3",
           "autoUpgradeMinorVersion": true,
           "settings": {
-            "Name": "[parameters('domainName')]",
-            "OuPath":"[parameters('domainOUPath')]",
-            "User": "[parameters('domainJoinAccountName')]",
-            "Restart": "true",
-            "Options": "3"
+            "name": "[parameters('domainName')]",
+            "ouPath":"[parameters('domainOUPath')]",
+            "user": "[parameters('domainJoinAccountName')]",
+            "restart": "true",
+            "options": "3"
           },
           "protectedSettings": "[if(parameters('joinDomain'), variables('protectedSettings'), json('null'))]"
         }

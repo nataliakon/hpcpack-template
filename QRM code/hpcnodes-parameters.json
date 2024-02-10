@@ -75,7 +75,7 @@
         "value": "azurelab.ca"
       },
       "domainOUPath":{
-        "value": ""
+        "value": "CN=Computers,DC=azurelab,DC=ca"
       },
       "domainJoinAccountName":{
         "value": "azadmin@azurelab.ca"
