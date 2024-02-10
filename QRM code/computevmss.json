@@ -398,7 +398,7 @@
       "dnsServers": "[parameters('dnsServers')]"
     },
     "protectedSettings": {
-      "userPassword": "[parameters('domainJointAccountPassword')]"
+      "password": "[parameters('domainJointAccountPassword')]"
     },
     "sshKeyConfig": {
       "publicKeys": [
