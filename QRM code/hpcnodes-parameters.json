@@ -78,7 +78,7 @@
         "value": ""
       },
       "domainJoinAccountName":{
-        "value": "azadmin"
+        "value": "azadmin@azurelab.ca"
       },
       "domainJointAccountPassword":{
         "reference": {
