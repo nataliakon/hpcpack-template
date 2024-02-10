@@ -441,7 +441,7 @@
           "settings": {
             "name": "[parameters('domainName')]",
             "ouPath":"[parameters('domainOUPath')]",
-            "user": "[parameters('domainJoinAccountName')]",
+            "user": "[format('{0}\\{1}', parameters('domainName'), parameters('domainJoinAccountName'))]",
             "restart": "true",
             "options": "3"
           },
