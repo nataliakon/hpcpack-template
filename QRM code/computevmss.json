@@ -512,7 +512,6 @@
       "properties": {
         "singlePlacementGroup": "[parameters('singlePlacementGroup')]",
         "platformFaultDomainCount": "[parameters('platformFaultDomainCount')]",
-        "overprovision": false,
         "upgradePolicy": {
           "mode": "[parameters('upgradePolicyMode')]"
         },
