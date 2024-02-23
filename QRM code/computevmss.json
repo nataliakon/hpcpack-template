@@ -513,9 +513,6 @@
       "properties": {
         "singlePlacementGroup": "[parameters('singlePlacementGroup')]",
         "platformFaultDomainCount": "[parameters('platformFaultDomainCount')]",
-        "upgradePolicy": {
-          "mode": "[parameters('upgradePolicyMode')]"
-        },
         "virtualMachineProfile": {
           "storageProfile": {
             "imageReference": "[variables('computeNodeImageRef')]",
