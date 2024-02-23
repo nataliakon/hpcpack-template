@@ -133,7 +133,7 @@
     },
     "singlePlacementGroup": {
       "type": "bool",
-      "defaultValue": true,
+      "defaultValue": false,
       "metadata": {
         "description": "Specify whether the scale set is limited to a single placement group"
       }
@@ -145,6 +145,14 @@
         "description": "Specify the priority of the virtual machines in the scale set, Regular or Low."
       }
     },
+    "upgradePolicyMode":{
+      "type": "string",
+      "defaultValue": "Manual",
+      "metadata": {
+        "description": "The upgrade policy mode for the VMSS"},
+      "allowedValues": ["Manual", "Automatic"]
+    },
+
     "installRDMADriver": {
       "type": "bool",
       "defaultValue": false,
@@ -241,11 +249,26 @@
       "metadata": {
         "description": "orchestrationMode for VMSS. https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-orchestration-modes#a-comparison-of-flexible-uniform-and-availability-sets"
       },
-      "defaultValue": "Uniform",
+      "defaultValue": "Flexible",
       "allowedValues": [
         "Flexible",
         "Uniform"
       ]
+    },
+    "platformFaultDomainCount":{
+      "type": "int",
+      "defaultValue": 1,
+      "allowedValues": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "metadata": {
+        "description": "The platform fault domain count for your scale set. Set to 1 to allow Azure to maximally spread instances across many racks in the datacenter."
+      }
+      }
     },
     "vaultName": {
       "type": "string",
@@ -489,9 +512,10 @@
       "identity": "[if(empty(trim(parameters('userAssignedIdentity'))), json('null'), variables('userAssignedIdentityObject'))]",
       "properties": {
         "singlePlacementGroup": "[parameters('singlePlacementGroup')]",
+        "platformFaultDomainCount": "[parameters('platformFaultDomainCount')]",
         "overprovision": false,
         "upgradePolicy": {
-          "mode": "Manual"
+          "mode": "[parameters('upgradePolicyMode')]"
         },
         "virtualMachineProfile": {
           "storageProfile": {
