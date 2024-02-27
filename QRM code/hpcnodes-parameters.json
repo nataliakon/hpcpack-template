@@ -30,10 +30,13 @@
         "value": "Standard_LRS"
       },
       "computeNodeImage": {
-        "value": "WindowsServer2019"
+        "value": "CustomImage"
       },
       "imageOsPlatform": {
         "value": "windows"
+      },
+      "computeNodeImageResourceId":{
+        "value": "/subscriptions/xxx/resourceGroups/xxx/providers/Microsoft.Compute/images/xxx"
       },
       "adminUsername":{
         "value": "azadmin"
