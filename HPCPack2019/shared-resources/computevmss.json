@@ -231,6 +231,7 @@
     }
   },
   "variables": {
+    "networkApiVersion": "2020-11-01",
     "userAssignedIdentityObject": {
       "type": "UserAssigned",
       "userAssignedIdentities": {
@@ -381,6 +382,7 @@
             "secrets": "[parameters('secrets')]"
           },
           "networkProfile": {
+            "networkApiVersion": "[variables('networkApiVersion')]",
             "networkInterfaceConfigurations": [
               {
                 "name": "nicconfig1",
