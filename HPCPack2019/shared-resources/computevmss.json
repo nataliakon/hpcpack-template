@@ -110,9 +110,9 @@
     },
     "singlePlacementGroup": {
       "type": "bool",
-      "defaultValue": true,
+      "defaultValue": false,
       "metadata": {
-        "description": "Specify whether the scale set is limited to a single placement group"
+        "description": "Specify whether the scale set is limited to a single placement group.Unsupported for Flexible orchestration mode"
       }
     },
     "vmPriority": {
