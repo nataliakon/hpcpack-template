@@ -122,6 +122,13 @@
         "description": "Specify the priority of the virtual machines in the scale set, Regular or Low."
       }
     },
+     "upgradePolicyMode":{
+      "type": "string",
+      "defaultValue": "Manual",
+      "metadata": {
+        "description": "The upgrade policy mode for the VMSS"},
+      "allowedValues": ["Manual", "Automatic"]
+    },
     "installRDMADriver": {
       "type": "bool",
       "defaultValue": false,
@@ -188,6 +195,31 @@
       "defaultValue": "",
       "metadata": {
         "description": "Optional, specify the resource ID of the user assigned identity to associate with the virtual machine in the form: /subscriptions/&lt;SubscriptionId&gt;/resourceGroups/&lt;ResourceGroupName&gt;/providers/Microsoft.ManagedIdentity/userAssignedIdentities/&lt;identityName&gt;"
+      }
+    },
+      "orchestrationMode": {
+      "type": "string",
+      "metadata": {
+        "description": "orchestrationMode for VMSS. https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-orchestration-modes#a-comparison-of-flexible-uniform-and-availability-sets"
+      },
+      "defaultValue": "Flexible",
+      "allowedValues": [
+        "Flexible",
+        "Uniform"
+      ]
+    },
+        "platformFaultDomainCount":{
+      "type": "int",
+      "defaultValue": 1,
+      "allowedValues": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "metadata": {
+        "description": "The platform fault domain count for your scale set. Set to 1 to allow Azure to maximally spread instances across many racks in the datacenter."
       }
     },
     "dnsServers": {
@@ -323,6 +355,7 @@
       "identity": "[if(empty(trim(parameters('userAssignedIdentity'))), json('null'), variables('userAssignedIdentityObject'))]",
       "properties": {
         "singlePlacementGroup": "[parameters('singlePlacementGroup')]",
+        "platformFaultDomainCount": "[parameters('platformFaultDomainCount')]",
         "overprovision": false,
         "upgradePolicy": {
           "mode": "Manual"
@@ -375,7 +408,9 @@
           },
           "priority": "[parameters('vmPriority')]",
           "evictionPolicy": "[if(equals(parameters('vmPriority'), 'Regular'), json('null'), 'Deallocate')]"
-        }
+        },
+        "orchestrationMode": "[parameters('orchestrationMode')]",
+        "zoneBalance": "[parameters('zoneBalance')]
       },
       "zones": "[parameters('availabilityZones')]"
     }
