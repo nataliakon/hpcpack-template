@@ -92,6 +92,13 @@
         "description": "The availability zones where the VM instances are created if specified."
       }
     },
+      "zoneBalance": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "The zone balance of the VM instances, only valid for VM instances in multiple zones."
+      }
+    },
     "osDiskSizeInGB": {
       "type": "int",
       "defaultValue": 128,
