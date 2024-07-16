@@ -222,6 +222,17 @@
         "description": "The platform fault domain count for your scale set. Set to 1 to allow Azure to maximally spread instances across many racks in the datacenter."
       }
     },
+    "deleteOption":{
+      "type": "string",
+      "defaultValue":"Delete",
+      "allowedValues":[
+        "Delete",
+        "Detach"
+      ],
+      "metadata": {
+        "description": "Specify what happens to the network and disk when the VM is deleted."
+      }
+    },
     "dnsServers": {
       "type": "array",
       "defaultValue": [],
@@ -252,6 +263,7 @@
           "input": {
             "lun": "[copyIndex('dataDisks')]",
             "createOption": "Empty",
+            "deleteOption": "[parameters('deleteOption')]",
             "diskSizeGB": "[parameters('dataDiskSizeInGB')]",
             "managedDisk": {
               "storageAccountType": "[parameters('dataDiskType')]"
@@ -366,6 +378,7 @@
             "osDisk": {
               "caching": "ReadOnly",
               "createOption": "FromImage",
+              "deleteOption": "[parameters('deleteOption')]",
               "diskSizeGB": "[parameters('osDiskSizeInGB')]",
               "managedDisk": {
                 "storageAccountType": "[parameters('osDiskType')]"
@@ -388,6 +401,7 @@
                 "name": "nicconfig1",
                 "properties": {
                   "primary": true,
+                  "deleteOption": "[parameters('deleteOption')]",
                   "enableAcceleratedNetworking": "[parameters('enableAcceleratedNetworking')]",
                   "dnsSettings": "[if(empty(parameters('dnsServers')), json('null'), variables('dnsSettings'))]",
                   "ipConfigurations": [
